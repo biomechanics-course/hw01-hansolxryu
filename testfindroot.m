@@ -31,7 +31,7 @@ assert( abs(findroot(fhandle1, x0)  - desiredroots1(1)) < abstol, ...
 
 %% Test case 2 "wrong" root
 
-x0 = 10; % CHANGE this to a different number to cause wrong root found
+x0 = 0; % CHANGE this to a different number to cause wrong root found
 assert( abs(findroot(fhandle1, x0)  - desiredroots1(1)) >= abstol, ...
     'Findroot found an unintended root');
 assert( abs(findroot(fhandle1, x0)  - desiredroots1(2)) < abstol, ...
@@ -40,11 +40,16 @@ assert( abs(findroot(fhandle1, x0)  - desiredroots1(2)) < abstol, ...
 %% Test case 3 No convergence
 % ADD a test findroot does not find correct root for fhandle2 
 
-=
+x0 = 2;
+desiredroots2 = 0;
+[xstar3, cnvrg3] = findroot(fhandle2, x0);
+assert( ~cnvrg3||~isreal(xstar3), ...
+    'Findroot converged');
+
 %% Test case 4 Vector function
 % ADD a test that demonstrates that vector fhandle3 does yield
 % correct root
 
-x0 = %% ADD info here
+x0 = [2; 2]; %% ADD info here
 assert( sqrt(sum(findroot(fhandle3, x0) - [1; -1]).^2)/2 < abstol, ...
     'Vector Findroot does not satisfy tolerance')
